@@ -76,6 +76,7 @@ enum AppType: String {
 }
 
 let path = CommandLine.arguments[1] + "/.."
+print("\(path)")
 guard let type = AppType.init(rawValue: CommandLine.arguments[2]) else {
 	fatalError("incorect type")
 }
