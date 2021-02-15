@@ -87,7 +87,7 @@ guard let data = try? Data(contentsOf: URL(fileURLWithPath: configPath)),
 	fatalError("config not load from path \(configPath)")
 }
 
-try JSONEncoder().encode(config).write(to: URL(fileURLWithPath: "\(path)/config.json"))
+try JSONEncoder().encode(config).write(to: URL(fileURLWithPath: "bot\(path)/config.json"))
 try generateRunScript(appConfig: config)
 try generateProxyScript(appConfig: config)
 try generateNodeRunScript(appConfig: config)
