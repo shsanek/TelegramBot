@@ -79,13 +79,14 @@ let path = CommandLine.arguments[1] + "/.."
 guard let type = AppType.init(rawValue: CommandLine.arguments[2]) else {
 	fatalError("incorect type")
 }
-let configPath = type == .test ? "/serverBot/config/test-config.json" : "/serverBot/config/prod-config.json"
+let configPath = type == .test ? "\(rootPath)/config/test-config.json" : "\(rootPath)/config/prod-config.json"
+print("\(configPath)")
 guard let data = try? Data(contentsOf: URL(fileURLWithPath: configPath)),
 	  let config = try? JSONDecoder().decode(AppConfig.self, from: data) else {
 	fatalError("config not load from path \(configPath)")
 }
 
-try JSONEncoder().encode(config).write(to: URL(fileURLWithPath: "\(path)\(rootPath)/config.json"))
+try JSONEncoder().encode(config).write(to: URL(fileURLWithPath: "\(path)/config.json"))
 try generateRunScript(appConfig: config)
 try generateProxyScript(appConfig: config)
 try generateNodeRunScript(appConfig: config)
