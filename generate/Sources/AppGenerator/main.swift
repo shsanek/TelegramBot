@@ -43,7 +43,8 @@ func generateNodeRunScript(appConfig: AppConfig) throws {
 	let runScriptPath = "\(path)/run/start-node"
 	let script = """
 	cd ../proxy/
-	node index.js >\(appConfig.dataBase)/log/node-last.log 2>&1
+	NOW=$(date +"%Y-%m-%d_%H-%M-%S")
+	node index.js >\(appConfig.dataBase)/log/node$NOW.log 2>&1
 	"""
 	try script.data(using: .utf8)?.write(to: URL(fileURLWithPath: runScriptPath))
 	print("generate \(runScriptPath)")
@@ -78,7 +79,7 @@ let path = CommandLine.arguments[1] + "/.."
 guard let type = AppType.init(rawValue: CommandLine.arguments[2]) else {
 	fatalError("incorect type")
 }
-let configPath = type == .test ? "\(rootPath)/config/test-config.json" : "\(rootPath)/config/prod-config.json"
+let configPath = type == .test ? "/serverBot/config/test-config.json" : "/serverBot/config/prod-config.json"
 guard let data = try? Data(contentsOf: URL(fileURLWithPath: configPath)),
 	  let config = try? JSONDecoder().decode(AppConfig.self, from: data) else {
 	fatalError("config not load from path \(configPath)")
