@@ -21,7 +21,7 @@ func generateRunScript(appConfig: AppConfig) throws {
 	cd \(path)/run
 	screen -dmS swift ./start-swift
 	screen -dmS proxy ./start-node
-	curl -F "url=https://\(appConfig.ip):\(appConfig.httpsPort)/\(appConfig.token)" -F "certificate=@\(path)/key/YOURPUBLIC.pem" -F "max_connections=\(appConfig.maxConnections)" https://api.telegram.org\(rootPath)\(appConfig.token)/setWebhook
+	curl -F "url=https://\(appConfig.ip):\(appConfig.httpsPort)/\(appConfig.token)" -F "certificate=@\(path)/key/YOURPUBLIC.pem" -F "max_connections=\(appConfig.maxConnections)" https://api.telegram.org/bot\(appConfig.token)/setWebhook
 	"""
 	try script.data(using: .utf8)?.write(to: URL(fileURLWithPath: runScriptPath))
 	print("generate \(runScriptPath)")
@@ -32,7 +32,7 @@ func generateSwiftRunScript(appConfig: AppConfig) throws {
 	let script = """
 	NOW=$(date +"%Y-%m-%d_%H-%M-%S")
 	LOG_PATH="\(appConfig.dataBase)/log/swift$NOW.log"
-	cd ..\(rootPath)
+	cd ../bot/
 	swift run Bot $PWD >$LOG_PATH 2>&1
 	"""
 	try script.data(using: .utf8)?.write(to: URL(fileURLWithPath: runScriptPath))
