@@ -1,0 +1,4 @@
+cd generate
+swift run AppGenerator $PWD $1
+cd ../run
+./run

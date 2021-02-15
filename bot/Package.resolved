@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Swifter",
+        "repositoryURL": "https://github.com/httpswift/swifter.git",
+        "state": {
+          "branch": null,
+          "revision": "9483a5d459b45c3ffd059f7b55f9638e268632fd",
+          "version": "1.5.0"
+        }
+      },
+      {
+        "package": "TelegramAPI",
+        "repositoryURL": "https://github.com/shsanek/SwiftTelegramApi",
+        "state": {
+          "branch": "master",
+          "revision": "8695c40a8f87315fff91687f7913a7739341ce75",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

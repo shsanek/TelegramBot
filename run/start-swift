@@ -1,0 +1,4 @@
+NOW=$(date +"%Y-%m-%d_%H-%M-%S")
+LOG_PATH="/bot/log/swift$NOW.log"
+cd ../bot
+swift run Bot $PWD >$LOG_PATH 2>&1

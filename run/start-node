@@ -1,0 +1,2 @@
+cd ../proxy/
+node index.js >/bot/log/node-last.log 2>&1

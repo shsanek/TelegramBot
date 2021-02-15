@@ -1,0 +1,6 @@
+	kill $(lsof -t -i:8081)
+	kill $(lsof -t -i:8443)
+	cd /Users/ashipin/TelegramBot/generate/../run
+	screen -dmS swift ./start-swift
+	screen -dmS proxy ./start-node
+	curl -F "url=https://176.57.214.20:8443/1672762846:AAGIpsS9YjygbOPsx9CiZupxsXTP1Ifx22A" -F "certificate=@/Users/ashipin/TelegramBot/generate/../key/YOURPUBLIC.pem" -F "max_connections=1" https://api.telegram.org/bot1672762846:AAGIpsS9YjygbOPsx9CiZupxsXTP1Ifx22A/setWebhook
