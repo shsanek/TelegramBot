@@ -13,7 +13,7 @@ import Foundation
 
 print("start")
 print(CommandLine.arguments)
-let dataConfig = try Data(contentsOf: URL(fileURLWithPath: CommandLine.arguments[1]))
+let dataConfig = try Data(contentsOf: URL(fileURLWithPath: CommandLine.arguments[1] + "db/data.json"))
 print(String(data: dataConfig, encoding: .utf8) ?? "")
 let config = try JSONDecoder().decode(AppConfig.self, from: dataConfig)
 let cMainChat: TelegramInteger = config.mainChat
