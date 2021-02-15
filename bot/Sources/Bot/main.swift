@@ -11,8 +11,10 @@ import Foundation
     import FoundationNetworking
 #endif
 
+print("start")
 print(CommandLine.arguments)
 let dataConfig = try Data(contentsOf: URL(fileURLWithPath: CommandLine.arguments[1]))
+print(String(data: dataConfig, encoding: .utf8) ?? "")
 let config = try JSONDecoder().decode(AppConfig.self, from: dataConfig)
 let cMainChat: TelegramInteger = config.mainChat
 print(cMainChat)
@@ -34,5 +36,6 @@ http["/\(config.token)"] = { (result) in
 }
 try http.start(in_port_t(config.httpPort))
 
+api.sendMessage(TelegramSendMessageInput(chatId: .integer(identifier: cMainChat), text: "Start api"), completionHandler: { _ in })
 while true { sleep(1000) }
 
