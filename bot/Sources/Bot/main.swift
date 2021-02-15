@@ -11,12 +11,15 @@ import Foundation
     import FoundationNetworking
 #endif
 
+print(CommandLine.arguments)
 let dataConfig = try Data(contentsOf: URL(fileURLWithPath: CommandLine.arguments[1]))
 let config = try JSONDecoder().decode(AppConfig.self, from: dataConfig)
 let cMainChat: TelegramInteger = config.mainChat
+print(cMainChat)
 let api = TelegramAPI(token: config.token)
 let path: String? = "/Users/ashipin/Desktop/myapp/data.json"
 let dataController = DataController(dataStorage: DataStorage(path: path ?? (config.dataBase + "/db/data.json")))
+print((config.dataBase + "/db/data.json"))
 let botController = BotController(dataController: dataController)
 
 import Swifter
