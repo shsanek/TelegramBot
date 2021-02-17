@@ -29,7 +29,7 @@ let http = HttpServer()
 http["/\(config.token)"] = { (result) in
 	let data = Data(result.body)
 	let json = try? JSONDecoder().decode(TelegramUpdate.self, from: data)
-	print(String(data: data, encoding: .utf8) ?? "empty input")
+	print("------<input>-----\n"  + (String(data: data, encoding: .utf8) ?? "empty input") + "\n------<\\input>-----\n")
 	json.flatMap({ botController.update(with: [$0]) })
 	return .ok(HttpResponseBody.html("ok"))
 }
