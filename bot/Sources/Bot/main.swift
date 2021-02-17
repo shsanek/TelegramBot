@@ -18,7 +18,7 @@ let config = try JSONDecoder().decode(AppConfig.self, from: dataConfig)
 let cMainChat: TelegramInteger = config.mainChat
 print(cMainChat)
 let api = TelegramAPI(token: config.token)
-let path: String? = "/Users/ashipin/Desktop/myapp/data.json"
+let path: String? = nil// = "/Users/ashipin/Desktop/myapp/data.json"
 let dataController = DataController(dataStorage: DataStorage(path: path ?? (config.dataBase + "/db/data.json")))
 print((config.dataBase + "/db/data.json"))
 let botController = BotController(dataController: dataController)
@@ -35,6 +35,6 @@ http["/\(config.token)"] = { (result) in
 }
 try http.start(in_port_t(config.httpPort))
 
-api.sendMessage(TelegramSendMessageInput(chatId: .integer(identifier: cMainChat), text: "Start api"), completionHandler: { _ in })
+api.sendMessage(TelegramSendMessageInput(chatId: .integer(identifier: cMainChat), text: "Start bot"), completionHandler: { _ in })
 while true { sleep(1000) }
 
