@@ -19,9 +19,17 @@ final class DataController {
 		self.dataStorage = dataStorage
 	}
 
+	func getMessage(messageId: Int64, complite: @escaping (Messsage?) -> Void) {
+		self.workQueue.sync {
+			let message = self.dataStorage.chatState.messages.first(where: {  $0.identifier == messageId })
+			complite(message)
+		}
+	}
+
 	func sendMessage(messageId: Int64, chatId: Int64, date: Int64, autor: Autor, complite: @escaping (Messsage) -> Void) {
 		workQueue.sync {
-			let message = Messsage(date: date, chatId: chatId, identifier: messageId, autor: autor, appraisalContainer: [])
+			var message = Messsage(date: date, chatId: chatId, identifier: messageId, autor: autor, appraisalContainer: [])
+			message.appraisalContainer.append(AppraisalContainer(autor: autor, value: .crown))
 			self.dataStorage.chatState.messages.append(message)
 			self.dataStorage.chatState.actions.append(Action(date: date, autor: autor,
 																messageIdentifier: messageId,
@@ -31,7 +39,7 @@ final class DataController {
 	}
 
 	func estimate(messageId: Int64, autor: Autor, date: Int64, appraisal: Appraisal, complite: @escaping (Messsage?) -> Void) {
-		self.workQueue.async {
+		self.workQueue.sync {
 			var result: Messsage? = nil
 			var action: Action?
 			self.dataStorage.updateMessage(id: messageId) { (message) in
